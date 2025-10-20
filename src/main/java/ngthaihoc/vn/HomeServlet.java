@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HomeServlet
  */
-@WebServlet({ "/home", "/admin", "/write" })
+@WebServlet({ "/home", "/admin", "/write", "/login", "/register" })
 public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +35,12 @@ public class HomeServlet extends HttpServlet {
 		} else if (urlString.contains("write")) {
 
 			urlString = "/views/write.jsp";
+		} else if (urlString.contains("login")) {
+
+			urlString = "/views/login.jsp";
+		} else if (urlString.contains("register")) {
+
+			urlString = "/views/register.jsp";
 		} else {
 
 			urlString = "/views/main.jsp";
