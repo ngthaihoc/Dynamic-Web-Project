@@ -1,0 +1,31 @@
+# ECLIPSE & JAVA
+.classpath
+.project
+.settings/
+bin/
+build/
+*.jar
+*.war
+*.ear
+
+# SERVER & DEPLOYMENT  
+Servers/
+target/
+dist/
+*.class
+
+# VS CODE
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# LOGS & TEMP
+*.log
+*.tmp
+*.temp
+
+# SYSTEM
+.DS_Store
+Thumbs.db
