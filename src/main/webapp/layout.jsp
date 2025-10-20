@@ -36,7 +36,7 @@
                     <input type="search" name="q" placeholder="Tìm bài viết..." aria-label="Tìm kiếm">
                 </form>
                 <div class="noiDungNavBar"><a href="#" title="Newsletter"><i class="bi bi-envelope"></i></a></div>
-                <div class="noiDungNavBar"><a href="#" title="Đăng nhập"><i class="bi bi-person-circle"></i></a></div>
+                <div class="noiDungNavBar"><a href="${pageContext.request.contextPath}/login" title="Đăng nhập"><i class="bi bi-person-circle"></i></a></div>
             </div>
         </div>
     </header>
