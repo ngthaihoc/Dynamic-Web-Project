@@ -20,5 +20,10 @@
                 <button type="submit">Register</button>
             </div>
         </form>
+        
+        <div class="registerLoginLink"> 
+            <p>Already have an account? <a href="${pageContext.request.contextPath}/login">Login here</a></p>
+        </div>
+        
     </div>
 </div>

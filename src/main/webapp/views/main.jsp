@@ -196,7 +196,7 @@
                 <h2>Đăng ký nhận newsletter hàng tuần của chúng tôi</h2>
                 <h3>Nội dung giới thiệu newsletter</h3>
 
-                <form id="mainNewsletterForm" action="/newsletter/subscribe" method="post">
+                <form id="mainNewsletterForm" action="/home" method="post">
                     <h4><label for="newsletterEmail">Nhập email của bạn</label></h4>
                     <input type="email" id="mainNewsletterEmail" name="email" placeholder="email@domain.com" required>
 

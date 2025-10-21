@@ -1,57 +1,110 @@
 @charset "UTF-8";
 
+:root {
+    --primary-color: #3c6cdd; 
+    --primary-hover-color: #2c5cd5;
+    --form-bg-color: #3b4049; 
+    --text-color: #f0f0f0; 
+    --link-color: #92b0f5; 
+    --input-border-color: #555;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* --- Container Chính (Đã loại bỏ body và min-height) --- */
 .loginContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-}
-.loginFormContainer {
-    background-color: rgb(74, 74, 74);
-    padding: 2rem;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 400px;
-}
-.loginFormGroup {
-    margin-bottom: 1rem;
-}
-.loginFormGroup label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-.loginFormGroup input {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-.loginFormGroup button {
-    width: 100%;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 5px;
-    background-color: #3c6cdd;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-}
-.loginFormGroup button:hover {
-    background-color: #2c5cd5;
-}
-.loginRegisterLink {
-    text-align: center;
-    margin-top: 1rem;
-}
-.loginRegisterLink a {
-    color: #92b0f5;
-    text-decoration: none;
 }
 
-#loginMainDiv{
-    width: 500px;
-    margin: 0 auto;
+/* --- Khối Form Tổng Thể (Sử dụng px) --- */
+.loginFormContainer {
+    background-color: var(--form-bg-color); 
+    padding: 40px; /* px */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); 
+    max-width: 400px; 
+    width: 100%;
+    color: var(--text-color); 
+    font-family: sans-serif;
 }
-#loginMainDiv h2{
+
+/* --- Khối Main Div --- */
+#loginMainDiv {
+    width: 100%;
+    margin: 0; 
+}
+
+#loginMainDiv h2 {
     text-align: center;
+    margin-bottom: 30px; /* px */
+    color: var(--text-color);
+}
+
+/* --- Các Nhóm Form (Sử dụng px) --- */
+.loginFormGroup {
+    margin-bottom: 20px; /* px */
+}
+
+.loginFormGroup label {
+    display: block;
+    margin-bottom: 8px; /* px */
+    font-weight: 600; 
+}
+
+.loginFormGroup input {
+    width: 100%; 
+    padding: 12px 16px; /* px */
+    border-radius: 8px;
+    border: 1px solid var(--input-border-color);
+    background-color: #555; 
+    color: var(--text-color);
+}
+
+.loginFormGroup input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* --- Nút Đăng Nhập (Sử dụng px, đã loại bỏ animation) --- */
+.loginFormGroup button {
+    width: 100%; 
+    padding: 14px; /* px */
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 17px; /* px */
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px; /* px */
+}
+
+.loginFormGroup button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* --- Link Đăng Ký (Sử dụng px) --- */
+.loginRegisterLink {
+    text-align: center;
+    margin-top: 30px; /* px */
+    font-size: 15px; /* px */
+}
+
+.loginRegisterLink p {
+    margin: 0;
+}
+
+.loginRegisterLink a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.loginRegisterLink a:hover {
+    color: #c9d8ff; 
+    text-decoration: underline;
 }
