@@ -1,4 +1,4 @@
-package ngthaihoc.vn;
+package hocng.utils;
 
 import java.util.Properties;
 

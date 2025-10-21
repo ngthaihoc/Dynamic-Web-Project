@@ -1,4 +1,4 @@
-package ngthaihoc.vn;
+package hocng.servlet;
 
 import java.io.IOException;
 
