@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+/* NAVCSS */
+#layoutMainDiv {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    text-align: center;
+    color: rgb(183, 176, 176);
+    font-weight: 700;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bi {
+    font-size: 20px;
+}
+
+.layoutNoiDungNavBar {
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.layoutNoiDungNavBar a, .layoutNoiDungNavBar button {
+    background-color: rgb(44, 44, 44);
+    border: none;
+    color: rgb(203, 197, 197);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.layoutDivIcon {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.layoutDivContent {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#layoutNavbar {
+    border-radius: 10px;
+}
+
+/* Simple search form style */
+#layoutSearchForm input[type="search"] {
+    background-color: rgb(44, 44, 44);
+    border: 1px solid #666;
+    color: #ddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+/* FOOTER */
+#layoutMainFooter {
+    padding-top: 70px;
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: rgb(183, 176, 176);
+}
+
+h4 {
+    height: 9px;
+}
+
+h3 {
+    height: 9px;
+}
