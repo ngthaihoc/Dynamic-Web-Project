@@ -1,5 +1,7 @@
 package hocng.dao;
 
-public interface NewsDAO {
+import hocng.entity.NEWS;
+
+public interface NewsDAO extends CurdDAO<NEWS, String> {
 
 }

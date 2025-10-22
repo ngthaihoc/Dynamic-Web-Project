@@ -1,5 +1,7 @@
 package hocng.dao;
 
-public interface UsersDAO {
+import hocng.entity.USERS;
+
+public interface UsersDAO extends CurdDAO<USERS, String> {
 
 }

@@ -1,5 +1,7 @@
 package hocng.dao;
 
-public interface CategoriesDAO {
+import hocng.entity.CATEGORIES;
+
+public interface CategoriesDAO extends CurdDAO<CATEGORIES, String> {
 
 }
