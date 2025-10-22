@@ -12,25 +12,25 @@ import javax.servlet.http.HttpSession;
 import hocng.daoImp.UsersDAOImpl;
 import hocng.entity.USERS;
 
-@WebServlet("/login")
+@WebServlet("/auth")
 public class LoginServlet extends HttpServlet {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        String password = req.getParameter("password");
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = req.getParameter("id");
+		String password = req.getParameter("password");
 
-        UsersDAOImpl usersDAOImpl = new UsersDAOImpl();
-        USERS user = usersDAOImpl.findById(id);
+		UsersDAOImpl usersDAOImpl = new UsersDAOImpl();
+		USERS user = usersDAOImpl.findById(id);
 
-        if (user != null && hocng.utils.PasswordUtils.checkPassword(password, user.getPassword())) {
-            HttpSession session = req.getSession();
-            session.setAttribute("user", user);
-            resp.sendRedirect("/ASM/home");
-        } else {
-            req.setAttribute("error", "Invalid credentials");
-            req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
-        }
-    }
+		if (user != null && hocng.utils.PasswordUtils.checkPassword(password, user.getPassword())) {
+			HttpSession session = req.getSession();
+			session.setAttribute("user", user);
+			resp.sendRedirect("/ASM/home");
+		} else {
+			req.setAttribute("error", "Invalid credentials");
+			req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
+		}
+	}
 
 }

@@ -3,15 +3,14 @@ package hocng.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import hocng.daoImp.CategoriesDAOImpl;
-import hocng.daoImp.NewletterDAOImpl;
-import hocng.daoImp.NewsDAOImpl;
-import hocng.daoImp.UsersDAOImpl;
-import hocng.entity.USERS;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import hocng.daoImp.CategoriesDAOImpl;
+import hocng.daoImp.NewletterDAOImpl;
+import hocng.daoImp.NewsDAOImpl;
 
 /**
  * Servlet implementation class HomeServlet
@@ -90,7 +89,8 @@ public class HomeServlet extends HttpServlet {
 
 		String name = request.getParameter("displayName");
 
-		String content = "Thank you " + name + " for subscribing to our newsletter. You will receive new bulletins soon. We look forward to you reading them all, hehe.";
+		String content = "Thank you " + name
+				+ " for subscribing to our newsletter. You will receive new bulletins soon. We look forward to you reading them all, hehe.";
 		try {
 			hocng.utils.sendMail.sendEmail(email, "Newsletter Subscription", content);
 		} catch (Exception e) {
@@ -98,7 +98,6 @@ public class HomeServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect("/ASM/home");
 	}
 
 }

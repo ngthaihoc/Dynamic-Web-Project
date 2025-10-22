@@ -1,6 +1,5 @@
 package hocng.utils;
 
-import java.util.Properties;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,23 +14,18 @@ import java.sql.SQLException;
  */
 public class XJDBC {
 
-	// 1. Cấu hình kết nối
+	// 1. Cấu hình kết nối (Không đổi)
 	private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static String DBURL;
-	private static String USERNAME;
-	private static String PASSWORD;
+	private static final String DBURL_WINDOW_AUTH = "jdbc:sqlserver://LAPTOPCUAWELLY:1433;"
+			+ "databaseName=Wellum;integratedSecurity=true;" + "encrypt=true;trustServerCertificate=true;";
 
 	// Khối static: Tải Driver (Không đổi)
 	static {
 		try {
-			Properties props = new Properties();
-			props.load(XJDBC.class.getClassLoader().getResourceAsStream("db.properties"));
-			DBURL = props.getProperty("db.url");
-			USERNAME = props.getProperty("db.username");
-			PASSWORD = props.getProperty("db.password");
 			Class.forName(DRIVER);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (ClassNotFoundException e) {
+			System.err.println("Lỗi: Không tìm thấy Driver SQL Server.");
+			throw new RuntimeException("Không thể tải Driver SQL Server.", e);
 		}
 	}
 
@@ -55,7 +49,7 @@ public class XJDBC {
 
 	// Các phương thức cơ bản (Không đổi)
 	public static Connection openConnection() throws SQLException {
-		return DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+		return DriverManager.getConnection(DBURL_WINDOW_AUTH);
 	}
 
 	public static PreparedStatement prepareStatement(Connection conn, String sql, Object... values)
