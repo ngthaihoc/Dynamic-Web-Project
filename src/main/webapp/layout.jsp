@@ -36,7 +36,12 @@
                     <input type="search" name="q" placeholder="Tìm bài viết..." aria-label="Tìm kiếm">
                 </form>
                 <div class="layoutNoiDungNavBar"><a href="#" title="Newsletter"><i class="bi bi-envelope"></i></a></div>
-                <div class="layoutNoiDungNavBar"><a href="${pageContext.request.contextPath}/login" title="Đăng nhập"><i class="bi bi-person-circle"></i></a></div>
+                <c:if test="${empty sessionScope.user}">
+                    <div class="layoutNoiDungNavBar"><a href="${pageContext.request.contextPath}/login" title="Đăng nhập"><i class="bi bi-person-circle"></i></a></div>
+                </c:if>
+                <c:if test="${not empty sessionScope.user}">
+                    <div class="layoutNoiDungNavBar"><a href="${pageContext.request.contextPath}/logout" title="Đăng xuất"><i class="bi bi-box-arrow-right"></i></a></div>
+                </c:if>
             </div>
         </div>
     </header>

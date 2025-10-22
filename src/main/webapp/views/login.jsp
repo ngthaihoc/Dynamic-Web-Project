@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css">
 
 <div class="loginContainer">
@@ -7,10 +8,13 @@
         
         <div id="loginMainDiv">
         <h2>Login</h2>
+        <c:if test="${not empty error}">
+            <p style="color: red;">${error}</p>
+        </c:if>
         <form action="${pageContext.request.contextPath}/login" method="post">
             <div class="loginFormGroup">
-                <label for="loginEmail">Email</label>
-                <input type="email" id="loginEmail" name="email" required>
+                <label for="loginId">ID</label>
+                <input type="text" id="loginId" name="id" required>
             </div>
             <div class="loginFormGroup">
                 <label for="password">Password</label>

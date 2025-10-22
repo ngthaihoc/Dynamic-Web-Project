@@ -22,6 +22,12 @@ public class NEWSLETTERS {
 		super();
 	}
 
+	public NEWSLETTERS(String email, boolean enabled) {
+		super();
+		this.email = email;
+		this.enabled = enabled;
+	}
+
 	/**
 	 * @return the enabled
 	 */
