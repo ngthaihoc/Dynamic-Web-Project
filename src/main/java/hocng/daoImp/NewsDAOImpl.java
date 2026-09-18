@@ -51,8 +51,26 @@ public class NewsDAOImpl implements NewsDAO {
 
 	@Override
 	public NEWS findById(String id) {
-		// TODO Auto-generated method stub
 		return XQuery.getSingleBean(NEWS.class, findNewsByIdSQL, id);
 	}
 
+	@Override
+	public List<NEWS> findByCategory(String categoryId) {
+		return XQuery.getBeanList(NEWS.class, findNewsByCategorySQL, categoryId);
+	}
+
+	@Override
+	public List<NEWS> findByAuthor(String author) {
+		return XQuery.getBeanList(NEWS.class, findNewsByAuthorSQL, author);
+	}
+
+	@Override
+	public List<NEWS> findHomeNews() {
+		return XQuery.getBeanList(NEWS.class, findHomeNewsSQL);
+	}
+
+	@Override
+	public void increaseViewCount(String id) {
+		XJDBC.executeUpdate(increaseViewCountSQL, id);
+	}
 }

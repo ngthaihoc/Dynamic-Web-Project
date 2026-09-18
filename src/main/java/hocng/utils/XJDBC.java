@@ -47,9 +47,13 @@ public class XJDBC {
 		System.err.println("------------------------------");
 	}
 
-	// Các phương thức cơ bản (Không đổi)
+	// Các phương thức cơ bản (Hỗ trợ cấu hình qua DB_URL / db.url, mặc định DBURL_WINDOW_AUTH)
 	public static Connection openConnection() throws SQLException {
-		return DriverManager.getConnection(DBURL_WINDOW_AUTH);
+		String envUrl = System.getenv("DB_URL");
+		String propUrl = System.getProperty("db.url");
+		String url = (envUrl != null && !envUrl.trim().isEmpty()) ? envUrl.trim()
+				: (propUrl != null && !propUrl.trim().isEmpty()) ? propUrl.trim() : DBURL_WINDOW_AUTH;
+		return DriverManager.getConnection(url);
 	}
 
 	public static PreparedStatement prepareStatement(Connection conn, String sql, Object... values)

@@ -46,7 +46,11 @@ public class NewletterDAOImpl implements NewletterDAO {
 
 	@Override
 	public NEWSLETTERS findById(String id) {
-		// TODO Auto-generated method stub
 		return XQuery.getSingleBean(NEWSLETTERS.class, findNewsletterByEmailSQL, id);
+	}
+
+	@Override
+	public List<NEWSLETTERS> findActive() {
+		return XQuery.getBeanList(NEWSLETTERS.class, findActiveNewslettersSQL);
 	}
 }

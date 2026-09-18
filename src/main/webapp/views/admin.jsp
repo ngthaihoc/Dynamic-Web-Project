@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
 
 <div class="adminContainer">
@@ -28,24 +29,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Tiêu đề bài viết mẫu 1</td>
-                        <td>Nguyễn Thái Học</td>
-                        <td class="adminActions">
-                            <button class="adminBtnSua">Sửa</button>
-                            <button class="adminBtnXoa">Xóa</button>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td>2</td>
-                        <td>Làm thế nào để trở thành Kỹ sư dữ liệu?</td>
-                        <td>Nguyễn Thái Học</td>
-                        <td class="adminActions">
-                            <button class="adminBtnSua">Sửa</button>
-                            <button class="adminBtnXoa">Xóa</button>
-                        </td>
-                    </tr>
+                    <c:choose>
+                        <c:when test="${not empty newsList}">
+                            <c:forEach var="item" items="${newsList}">
+                                <tr>
+                                    <td>${item.id}</td>
+                                    <td>${item.title}</td>
+                                    <td>${item.author}</td>
+                                    <td class="adminActions">
+                                        <button class="adminBtnSua">Sửa</button>
+                                        <button class="adminBtnXoa">Xóa</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                <td>1</td>
+                                <td>Tiêu đề bài viết mẫu 1</td>
+                                <td>Nguyễn Thái Học</td>
+                                <td class="adminActions">
+                                    <button class="adminBtnSua">Sửa</button>
+                                    <button class="adminBtnXoa">Xóa</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Làm thế nào để trở thành Kỹ sư dữ liệu?</td>
+                                <td>Nguyễn Thái Học</td>
+                                <td class="adminActions">
+                                    <button class="adminBtnSua">Sửa</button>
+                                    <button class="adminBtnXoa">Xóa</button>
+                                </td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
                 </tbody>
             </table>
 
@@ -69,8 +87,29 @@
     <div id="adminQuanLyLoaiBaiViet" class="adminContentSection" style="display:none;">
         <div class="adminContentCard">
             <h2 class="adminSectionTitle">QUẢN LÝ LOẠI BÀI VIẾT</h2>
-            <%-- Nội dung cho mục này sẽ được thêm vào đây --%>
-            <p>Chức năng đang được phát triển.</p>
+            <c:choose>
+                <c:when test="${not empty categoryList}">
+                    <table class="adminDataTable">
+                        <thead>
+                            <tr>
+                                <th>Mã loại</th>
+                                <th>Tên loại</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="cat" items="${categoryList}">
+                                <tr>
+                                    <td>${cat.id}</td>
+                                    <td>${cat.name}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>Chưa có loại bài viết.</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
     
@@ -78,15 +117,63 @@
     <div id="adminQuanLyNguoiDung" class="adminContentSection" style="display:none;">
         <div class="adminContentCard">
             <h2 class="adminSectionTitle">QUẢN LÝ NGƯỜI DÙNG</h2>
-             <p>Chức năng đang được phát triển.</p>
+            <c:choose>
+                <c:when test="${not empty userList}">
+                    <table class="adminDataTable">
+                        <thead>
+                            <tr>
+                                <th>Tài khoản</th>
+                                <th>Họ và tên</th>
+                                <th>Email</th>
+                                <th>Vai trò</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="u" items="${userList}">
+                                <tr>
+                                    <td>${u.id}</td>
+                                    <td>${u.fullname}</td>
+                                    <td>${u.email}</td>
+                                    <td>${u.role ? 'Quản trị viên' : 'Người dùng'}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>Chưa có người dùng.</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
     
     <%-- Mục 4: Quản lý Newsletter (ẩn mặc định) --%>
     <div id="adminQuanLyNewsletter" class="adminContentSection" style="display:none;">
         <div class="adminContentCard">
-             <h2 class="adminSectionTitle">QUẢN LÝ NEWSLETTER</h2>
-             <p>Chức năng đang được phát triển.</p>
+            <h2 class="adminSectionTitle">QUẢN LÝ NEWSLETTER</h2>
+            <c:choose>
+                <c:when test="${not empty newsletterList}">
+                    <table class="adminDataTable">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="nl" items="${newsletterList}">
+                                <tr>
+                                    <td>${nl.email}</td>
+                                    <td>${nl.enabled ? 'Đang hoạt động' : 'Tạm dừng'}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <p>Chưa có người đăng ký nhận tin.</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>

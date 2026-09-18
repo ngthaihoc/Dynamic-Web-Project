@@ -50,29 +50,15 @@ public class XQuery {
 	 */
 	public static <B> List<B> getBeanList(Class<B> beanClass, String sql, Object... values) {
 		List<B> list = new ArrayList<>();
-		// SỬ DỤNG try-with-resources để đảm bảo Connection, Statement, ResultSet được
-		// đóng
-		// do XJDBC.executeQuery trả về ResultSet mà không tự đóng Connection/Statement.
-		try {
-			// XJDBC.executeQuery trả về ResultSet, nhưng Connection/Statement vẫn đang mở.
-			ResultSet resultSet = XJDBC.executeQuery(sql, values);
+		try (java.sql.Connection conn = XJDBC.openConnection();
+				java.sql.PreparedStatement stmt = XJDBC.prepareStatement(conn, sql, values);
+				ResultSet resultSet = stmt.executeQuery()) {
 
-			// Xử lý đóng tài nguyên thủ công sau khi đọc xong
-			try (resultSet) { // Đóng ResultSet khi hoàn tất
-				while (resultSet.next()) {
-					list.add(XQuery.readBean(resultSet, beanClass));
-				}
+			while (resultSet.next()) {
+				list.add(XQuery.readBean(resultSet, beanClass));
 			}
-			// LƯU Ý: XJDBC.executeQuery MỞ Connection và Statement. Nếu không dùng
-			// try-with-resources cho toàn bộ logic DAO, thì Connection/Statement vẫn
-			// có thể bị rò rỉ. Trong trường hợp này, ta giả định lớp gọi XQuery
-			// là lớp DAO, và XQuery đang phụ thuộc vào cách đóng tài nguyên của XJDBC.
-			// Để an toàn nhất, nên dùng XJDBC.openConnection() và XJDBC.prepareStatement()
-			// trực tiếp trong DAO và bao bọc toàn bộ trong try-with-resources.
-
 		} catch (SQLException ex) {
 			System.err.println("Lỗi truy vấn SQL: " + ex.getMessage());
-			// Ném lỗi Runtime để lớp gọi có thể bắt hoặc để ứng dụng biết lỗi
 			throw new RuntimeException("Lỗi khi thực hiện truy vấn", ex);
 		} catch (Exception ex) {
 			System.err.println("Lỗi chuyển đổi đối tượng: " + ex.getMessage());
@@ -115,22 +101,29 @@ public class XQuery {
 					// Lấy giá trị từ ResultSet theo tên cột
 					Object value = resultSet.getObject(columnName);
 
-					// Xử lý chuyển đổi kiểu đặc biệt (VD: BigDecimal -> double/float)
+					// Xử lý chuyển đổi kiểu đặc biệt (Number, Boolean, Date)
 					Class<?> paramType = method.getParameterTypes()[0];
-					if (value instanceof BigDecimal) {
-						if (paramType == double.class || paramType == Double.class) {
-							value = ((BigDecimal) value).doubleValue();
+					if (value instanceof Number) {
+						Number num = (Number) value;
+						if (paramType == boolean.class || paramType == Boolean.class) {
+							value = num.intValue() != 0;
+						} else if (paramType == int.class || paramType == Integer.class) {
+							value = num.intValue();
+						} else if (paramType == long.class || paramType == Long.class) {
+							value = num.longValue();
+						} else if (paramType == double.class || paramType == Double.class) {
+							value = num.doubleValue();
 						} else if (paramType == float.class || paramType == Float.class) {
-							value = ((BigDecimal) value).floatValue();
+							value = num.floatValue();
+						} else if (paramType == short.class || paramType == Short.class) {
+							value = num.shortValue();
+						} else if (paramType == byte.class || paramType == Byte.class) {
+							value = num.byteValue();
 						}
-					} else if (value != null && paramType.isPrimitive()) {
-						// Xử lý cho các kiểu dữ liệu nguyên thủy
-						// Nếu resultSet trả về Integer/Long và setter là int/long thì OK,
-						// nhưng nếu cột NULL thì value là NULL, không thể gán cho kiểu nguyên thủy.
-						// Thêm logic chuyển đổi nếu cần, nhưng thường JDBC tự xử lý.
-						// Nếu value là null, và paramType là nguyên thủy (vd: int), sẽ ném
-						// IllegalArgumentException
-						// nên khối catch sẽ bắt được.
+					} else if (value instanceof java.sql.Date && paramType == java.util.Date.class) {
+						value = new java.util.Date(((java.sql.Date) value).getTime());
+					} else if (value instanceof java.sql.Timestamp && paramType == java.util.Date.class) {
+						value = new java.util.Date(((java.sql.Timestamp) value).getTime());
 					}
 
 					// Gọi setter để gán giá trị

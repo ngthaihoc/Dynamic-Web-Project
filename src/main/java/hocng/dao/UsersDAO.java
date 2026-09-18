@@ -2,6 +2,8 @@ package hocng.dao;
 
 import hocng.entity.USERS;
 
-public interface UsersDAO extends CurdDAO<USERS, String> {
+import java.util.List;
 
+public interface UsersDAO extends CurdDAO<USERS, String> {
+	List<USERS> findByRole(boolean role);
 }

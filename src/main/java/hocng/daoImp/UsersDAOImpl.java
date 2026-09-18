@@ -49,8 +49,11 @@ public class UsersDAOImpl implements UsersDAO {
 
 	@Override
 	public USERS findById(String id) {
-		// TODO Auto-generated method stub
 		return XQuery.getSingleBean(USERS.class, findUserByIdSQL, id);
 	}
 
+	@Override
+	public List<USERS> findByRole(boolean role) {
+		return XQuery.getBeanList(USERS.class, findUsersByRoleSQL, role);
+	}
 }

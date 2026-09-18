@@ -20,16 +20,21 @@ public class sendMail {
 		pro.put("mail.smtp.auth", "true");
 		pro.put("mail.smtp.starttls.enable", "true");
 
+		final String smtpUser = System.getenv("SMTP_USER") != null ? System.getenv("SMTP_USER")
+				: System.getProperty("smtp.user", "ngthaihoc.vn@gmail.com");
+		final String smtpPass = System.getenv("SMTP_PASS") != null ? System.getenv("SMTP_PASS")
+				: System.getProperty("smtp.pass", "");
+
 		// 2. Đăng nhập Gmail
 		Session session = Session.getInstance(pro, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("ngthaihoc.vn@gmail.com", "dhls iqff cmkn zkso");
+				return new PasswordAuthentication(smtpUser, smtpPass);
 			}
 		});
 
 		// 3. Tạo email
 		Message mess = new MimeMessage(session);
-		mess.setFrom(new InternetAddress("ngthaihoc.vn@gmail.com"));
+		mess.setFrom(new InternetAddress(smtpUser));
 		mess.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 		mess.setSubject(subject);
 		mess.setText(content);

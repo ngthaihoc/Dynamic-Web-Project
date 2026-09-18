@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
 
@@ -196,7 +197,7 @@
                 <h2>Đăng ký nhận newsletter hàng tuần của chúng tôi</h2>
                 <h3>Nội dung giới thiệu newsletter</h3>
 
-                <form id="mainNewsletterForm" action="/home" method="post">
+                <form id="mainNewsletterForm" action="${pageContext.request.contextPath}/home" method="post">
                     <h4><label for="newsletterEmail">Nhập email của bạn</label></h4>
                     <input type="email" id="mainNewsletterEmail" name="email" placeholder="email@domain.com" required>
 
@@ -204,6 +205,9 @@
                     <input type="text" id="mainNewsletterName" name="displayName" placeholder="Tên hiển thị" maxlength="64">
 
                     <button type="submit">ĐĂNG KÝ</button>
+                    <c:if test="${not empty newsletterMsg}">
+                        <p style="color: #27ae60; font-size: 0.9em; margin-top: 8px;">${newsletterMsg}</p>
+                    </c:if>
                 </form>
             </div>
 

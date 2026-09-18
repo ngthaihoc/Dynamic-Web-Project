@@ -84,6 +84,20 @@ public class NEWS {
 	}
 
 	/**
+	 * @return the postedDate (alias for DATETIME)
+	 */
+	public Date getPostedDate() {
+		return DATETIME;
+	}
+
+	/**
+	 * @param postedDate the postedDate to set
+	 */
+	public void setPostedDate(Date postedDate) {
+		this.DATETIME = postedDate;
+	}
+
+	/**
 	 * @return the author
 	 */
 	public String getAuthor() {
